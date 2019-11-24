@@ -21,6 +21,13 @@ def get_race_info(s: str):
     example
     file-encoding = utf-8
     res = get_race_info("../race/2015/K150101.TXT")
+    ;; => res[0]
+    ;; => [{'player_id': 4718, 'time': 106.6},
+              {'player_id': 4661, 'time': 108.5},
+              {'player_id': 4072, 'time': 110.3},
+              {'player_id': 3471, 'time': 111.4},
+              {'player_id': 3459, 'time': 112.6},
+              {'player_id': 4724, 'time': 113.3}]
     """
     with open(s, encoding='utf-8') as f:
         lines = f.readlines()
@@ -35,7 +42,7 @@ def get_race_info(s: str):
                 while True:
                     i = i + 1
                     if lines[i].startswith("  0"):
-                        if  lines[i].endswith(" .  . "):
+                        if lines[i].endswith(" .  . \n"):
                             r = []
                             break
                         else:
@@ -44,7 +51,8 @@ def get_race_info(s: str):
                             idx = base[2].strip()
                             time = base[-1].strip()
                             if idx.isdecimal() and is_num(time):
-                                r.append([int(idx), to_time(time)])
+                                r.append({"player_id": int(idx),
+                                          "time":  to_time(time)})
                             else:
                                 break
                     else:
