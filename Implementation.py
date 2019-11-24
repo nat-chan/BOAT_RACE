@@ -21,7 +21,8 @@ racer_dict = racer.load_fanXXXX("./racer/fan1804.txt")
 
 y = race_array[:,1]
 X = np.array([list(racer_dict[int(i)].values()) for i in race_array[:,0]])
-X = X/np.max(X) #normalization
+#X = X/np.max(X) #normalization
+X = (X - np.mean(X,axis=0))/(np.var(X,axis=0) + 1e-10) #normalization
 target_column = racer_dict[int(race_array[:,0][0])].keys()
 
 def print_red(x):
