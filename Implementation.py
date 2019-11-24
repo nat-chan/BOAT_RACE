@@ -26,6 +26,15 @@ X = np.array([list(racer_dict[int(i)].values()) for i in race_array[:,0]])
 X = (X - np.mean(X,axis=0))/(np.var(X,axis=0) + 1e-10) #normalization
 target_column = np.array(list(racer_dict[int(race_array[:,0][0])].keys()))
 
+
+df = pd.DataFrame(
+{target_column[i]: X[:,i]
+for i in range(target_column.shape[0])
+}
+)
+
+import IPython;IPython.embed()
+
 def print_red(x):
     print()
     print("\033[31m%s\033[0m"%x)
