@@ -175,6 +175,19 @@ def load_fanXXXX(filename):
                     X_value = float(X_value_buf)
                     X.update({X_key: X_value})
                 except ValueError:
+                    if X_key == "級":
+                        if   X_value_buf == b'A1':
+                            X_value = 4
+                        elif X_value_buf == b'A2':
+                            X_value = 3
+                        elif X_value_buf == b'B1':
+                            X_value = 2
+                        elif X_value_buf == b'B2':
+                            X_value = 1
+                        else:
+                            X_value = 0
+                        X.update({X_key: X_value})
+
                     pass
 #                    X_value = X_value_buf.decode("shift-jis")
             racers.update({racer_id: X})
@@ -182,6 +195,6 @@ def load_fanXXXX(filename):
     return racers
 
 if __name__ == "__main__":
-    racers = load_fanXXXX("./fan1810.txt")
+    racers = load_fanXXXX("./racer/fan1810.txt")
     import IPython;IPython.embed()
 
