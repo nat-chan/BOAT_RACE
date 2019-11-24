@@ -173,9 +173,10 @@ def load_fanXXXX(filename):
                 X_value_buf = f.read(line[1])
                 try:
                     X_value = float(X_value_buf)
+                    X.update({X_key: X_value})
                 except ValueError:
-                    X_value = X_value_buf.decode("shift-jis")
-                X.update({X_key: X_value})
+                    pass
+#                    X_value = X_value_buf.decode("shift-jis")
             racers.update({racer_id: X})
             f.read(2) # "\r\n"
     return racers

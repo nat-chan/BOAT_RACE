@@ -17,19 +17,22 @@ import racer # ogino
 import race  # ebata
 
 race_array = np.array(race.get_race_info("./race/2018/K180531.TXT")).reshape(-1,2)
-racer.load_fanXXXX("./racer/fan1804.txt")
+racer_dict = racer.load_fanXXXX("./racer/fan1804.txt")
 
+y = race_array[:,1]
+X = np.array([list(racer_dict[int(i)].values()) for i in race_array[:,0]])
 
-target_column = ['time']
-predictors = list(set(list(df.columns))-set(target_column)) # List of features excluding target variable
-df[predictors] = df[predictors]/df[predictors].max() # normalize the predictors since the units are different  to avoid innfluencing of prediction process
+#target_column = ['time']
+#predictors = list(set(list(df.columns))-set(target_column)) # List of features excluding target variable
+#df[predictors] = df[predictors]/df[predictors].max() # normalize the predictors since the units are different  to avoid innfluencing of prediction process
+#
+#X = df[predictors].values # create arrays of indipendent x variable and dependent y variables
+#y = df[target_column].values
 
-X = df[predictors].values # create arrays of indipendent x variable and dependent y variables
-y = df[target_column].values
-
-x_train, x_test, y_train, y_test = train_test_split(X, y, test_size=0.30, random_state=40)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.30, random_state=40)
 #Linear regression
 
 lr = LinearRegression()
 lr.fit(X_train, y_train)
-#LinearRegression(copy_X=True, fit_intercept=True, n_jobs=1, normalize=False)
+LinearRegression(copy_X=True, fit_intercept=True, n_jobs=1, normalize=False)
+
