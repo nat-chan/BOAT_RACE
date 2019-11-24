@@ -20,7 +20,7 @@ race_array = np.array(race.get_race_info("./race/2018/K180531.TXT")).reshape(-1,
 racer.load_fanXXXX("./racer/fan1804.txt")
 
 
-target_column = ['']
+target_column = ['time']
 predictors = list(set(list(df.columns))-set(target_column)) # List of features excluding target variable
 df[predictors] = df[predictors]/df[predictors].max() # normalize the predictors since the units are different  to avoid innfluencing of prediction process
 
