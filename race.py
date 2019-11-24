@@ -16,11 +16,27 @@ def to_time(s: str):
             i *= 60
     return t
 
+
 def get_race_info(s: str):
     """
     example
     file-encoding = utf-8
     res = get_race_info("../race/2015/K150101.TXT")
+    ;; => res[0]
+    ;; => [[4718, 106.6],
+              [4661, 108.5],
+              [4072, 110.3],
+              [3471, 111.4],
+              [3459, 112.6],
+              [4724, 113.3]]
+
+    ;; means:
+    ;; => [{'player_id': 4718, 'time': 106.6},
+              {'player_id': 4661, 'time': 108.5},
+              {'player_id': 4072, 'time': 110.3},
+              {'player_id': 3471, 'time': 111.4},
+              {'player_id': 3459, 'time': 112.6},
+              {'player_id': 4724, 'time': 113.3}]
     """
     with open(s, encoding='utf-8') as f:
         lines = f.readlines()
@@ -35,7 +51,7 @@ def get_race_info(s: str):
                 while True:
                     i = i + 1
                     if lines[i].startswith("  0"):
-                        if  lines[i].endswith(" .  . "):
+                        if lines[i].endswith(" .  . \n"):
                             r = []
                             break
                         else:
@@ -52,7 +68,6 @@ def get_race_info(s: str):
                 if (len(r) == 6):
                     res.append(r)
     return res
-
 
 def __get_race_info_with_nan(s: str):
     """
